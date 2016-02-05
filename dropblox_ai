@@ -194,6 +194,15 @@ class Board(object):
     new_bitmap = [row for row in bitmap if not all(row)]
     return [cols*[0] for i in range(rows - len(new_bitmap))] + new_bitmap
 
+  def get_score(self, block):
+    count = 0
+    for square in block.squares():
+      height = square + 1
+      while height < self.row and self.bitmap[height][square.j] == 0:
+        height += 1
+        count += 1
+    return count
+
 if __name__ == '__main__':
   if len(sys.argv) == 3:
     # This AI executable will be called with two arguments: a JSON blob of the
