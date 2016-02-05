@@ -196,11 +196,23 @@ class Board(object):
 
   def get_score(self, block):
     count = 0
+    s = set()
     for square in block.squares():
-      height = square + 1
+      s.add(square.i)
+      height = square.i + 1
       while height < self.row and self.bitmap[height][square.j] == 0:
         height += 1
         count += 1
+
+    count = count * -5
+
+    for i in s:
+      for j in self.bitmap[i]:
+        if self.bitmap[i][j] == 0:
+          break;
+      else:
+        count += 1
+  
     return count
 
 if __name__ == '__main__':
